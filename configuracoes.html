@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="/auxiliofamilia/configuracoes.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="profile">
+                <img src="/auxiliofamilia/images/imgperfil.png" alt="Foto de Perfil">
+                <div class="username" id="username">Nome do usuário</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/auxiliofamilia/home.html" id="logout">Sair</a></li>
+            </ul>
+        </header>
+        <main>
+            <div class="menu">
+                <a href="/auxiliofamilia/inicial.html" class="menu-item"><p id="menu-register">Cadastro de Famílias</p></a>
+                <a href="/auxiliofamilia/consulta.html" class="menu-item"><p id="menu-consult">Consultar/Editar</p></a>
+                <a href="/auxiliofamilia/perfil.html" class="menu-item"><p id="menu-profile">Perfil</p></a>
+                <a href="/auxiliofamilia/configuracoes.html" class="menu-item"><p id="menu-settings">Configurações</p></a>
+            </div>
+            <div class="content">
+                <h1 id="settings-title">Configurações</h1>
+                <div class="form">
+                    <form id="password-form" action="/auxiliofamilia/process_config.php" method="post">
+                        <h2 id="change-password-title">Alterar Senha</h2>
+                        <label for="current-password" id="current-password-label">Senha Atual:</label>
+                        <input type="password" id="current-password" name="current-password" required>
+                        <label for="new-password" id="new-password-label">Nova Senha:</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                        <label for="confirm-password" id="confirm-password-label">Confirmar Nova Senha:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                        <button type="submit" name="action" value="update-password" id="update-password-button">Alterar Senha</button>
+                    </form>
+                    <form id="preferences-form" action="/auxiliofamilia/process_config.php" method="post">
+                        <h2 id="preferences-title">Preferências</h2>
+                        <label for="language" id="language-label">Idioma:</label>
+                        <select id="language" name="language">
+                            <option value="pt">Português</option>
+                            <option value="en">Inglês</option>
+                            <!-- Adicione mais opções conforme necessário -->
+                        </select>
+                        <label for="notifications" id="notifications-label">Notificações:</label>
+                        <select id="notifications" name="notifications">
+                            <option value="enabled" id="notifications-enabled">Ativadas</option>
+                            <option value="disabled" id="notifications-disabled">Desativadas</option>
+                        </select>
+                        <button type="submit" name="action" value="update-preferences" id="save-preferences-button">Salvar Preferências</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <section id="footer">
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <a href="#">Auxílio Família</a>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#about" id="footer-about">Sobre</a></li>
+                        <li><a href="/auxiliofamilia/login.html" id="footer-login">Entrar</a></li>
+                        <li><a href="#" id="footer-privacy">Política de Privacidade</a></li>
+                        <li><a href="#" id="footer-terms">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <p id="footer-contact-us">Contact Us: info@auxiliofamilia.com</p>
+                    <p id="footer-phone">Phone: (123) 456-7890</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (loggedInUser) {
+                document.getElementById('username').textContent = loggedInUser.name;
+            } else {
+                window.location.href = "/auxiliofamilia/login.html";  // Redirect to login page if no user is logged in
+            }
+
+            // Change language based on saved preference
+            var language = localStorage.getItem('language') || 'pt';
+            document.getElementById('language').value = language;
+            changeLanguage(language);
+
+            // Event listener for language change
+            document.getElementById('language').addEventListener('change', function(event) {
+                var selectedLanguage = event.target.value;
+                localStorage.setItem('language', selectedLanguage);
+                changeLanguage(selectedLanguage);
+            });
+
+            function changeLanguage(language) {
+                var elements = {
+                    'settings-title': {'pt': 'Configurações', 'en': 'Settings'},
+                    'change-password-title': {'pt': 'Alterar Senha', 'en': 'Change Password'},
+                    'current-password-label': {'pt': 'Senha Atual:', 'en': 'Current Password:'},
+                    'new-password-label': {'pt': 'Nova Senha:', 'en': 'New Password:'},
+                    'confirm-password-label': {'pt': 'Confirmar Nova Senha:', 'en': 'Confirm New Password:'},
+                    'update-password-button': {'pt': 'Alterar Senha', 'en': 'Update Password'},
+                    'preferences-title': {'pt': 'Preferências', 'en': 'Preferences'},
+                    'language-label': {'pt': 'Idioma:', 'en': 'Language:'},
+                    'notifications-label': {'pt': 'Notificações:', 'en': 'Notifications:'},
+                    'notifications-enabled': {'pt': 'Ativadas', 'en': 'Enabled'},
+                    'notifications-disabled': {'pt': 'Desativadas', 'en': 'Disabled'},
+                    'save-preferences-button': {'pt': 'Salvar Preferências', 'en': 'Save Preferences'},
+                    'logout': {'pt': 'Sair', 'en': 'Logout'},
+                    'menu-register': {'pt': 'Cadastro de Famílias', 'en': 'Family Registration'},
+                    'menu-consult': {'pt': 'Consultar/Editar', 'en': 'Consult/Edit'},
+                    'menu-profile': {'pt': 'Perfil', 'en': 'Profile'},
+                    'menu-settings': {'pt': 'Configurações', 'en': 'Settings'},
+                    'footer-about': {'pt': 'Sobre', 'en': 'About'},
+                    'footer-login': {'pt': 'Entrar', 'en': 'Login'},
+                    'footer-privacy': {'pt': 'Política de Privacidade', 'en': 'Privacy Policy'},
+                    'footer-terms': {'pt': 'Termos de Uso', 'en': 'Terms of Use'},
+                    'footer-contact-us': {'pt': 'Contate-nos: info@auxiliofamilia.com', 'en': 'Contact Us: info@auxiliofamilia.com'},
+                    'footer-phone': {'pt': 'Telefone: (123) 456-7890', 'en': 'Phone: (123) 456-7890'}
+                };
+
+                for (var id in elements) {
+                    document.getElementById(id).textContent = elements[id][language];
+                }
+            }
+        });
+    </script>
+</body>
+</html>

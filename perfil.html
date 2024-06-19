@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="/auxiliofamilia/perfil.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="profile">
+                <img src="/auxiliofamilia/images/imgperfil.png" alt="Foto de Perfil" class="profile-pic" id="profile-pic">
+                <div class="username" id="username">Nome do usuário</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/auxiliofamilia/home.html">Sair</a></li>
+            </ul>
+        </header>
+        <main>
+            <div class="menu">
+                <a href="/auxiliofamilia/inicial.html" class="menu-item"><p>Cadastro de Famílias</p></a>
+                <a href="/auxiliofamilia/consulta.html" class="menu-item"><p>Consultar/Editar</p></a>
+                <a href="/auxiliofamilia/perfil.html" class="menu-item"><p>Perfil</p></a>
+                <a href="/auxiliofamilia/configuracoes.html" class="menu-item"><p>Configurações</p></a>
+            </div>
+            <div class="content">
+                <h1>Perfil do Usuário</h1>
+                <div class="profile-info">
+                    <form id="profile-form" action="process_perfil.php" method="post" enctype="multipart/form-data">
+                        <label for="profile-pic-input">Foto de Perfil:</label>
+                        <input type="file" id="profile-pic-input" name="profile-pic" accept="image/*">
+                        <label for="user-name">Nome:</label>
+                        <input type="text" id="user-name" name="user-name" required>
+                        <label for="user-email">Email:</label>
+                        <input type="email" id="user-email" name="user-email" required>
+                        <label for="user-phone">Telefone:</label>
+                        <input type="text" id="user-phone" name="user-phone" required>
+                        <button type="submit" name="action" value="update-profile">Atualizar Perfil</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <section id="footer">
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <a href="#">Auxilio Familia</a>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="/auxiliofamilia/login.html">Entrar</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <p>Contact Us: info@auxiliofamilia.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (loggedInUser) {
+                document.getElementById('username').textContent = loggedInUser.name;
+                if (loggedInUser.profilePic) {
+                    document.getElementById('profile-pic').src = loggedInUser.profilePic;
+                }
+            } else {
+                window.location.href = "/auxiliofamilia/login.html";  // Redirect to login page if no user is logged in
+            }
+
+            document.getElementById('profile-pic-input').addEventListener('change', function(event) {
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var output = document.getElementById('profile-pic');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Famílias em Extrema Pobreza</title>
+    <link rel="stylesheet" href="/auxiliofamilia/consulta.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="profile">
+                <img src="/auxiliofamilia/images/imgperfil.png" alt="">
+                <div class="username" id="username">Nome do usuário</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/auxiliofamilia/home.html">Sair</a></li>
+            </ul>
+        </header>
+        <main>
+            <div class="menu">
+                <a href="/auxiliofamilia/inicial.html" class="menu-item"><p>Cadastro de Famílias</p></a>
+                <a href="/auxiliofamilia/consulta.html" class="menu-item"><p>Consultar/Editar</p></a>
+                <a href="/auxiliofamilia/perfil.html" class="menu-item"><p>Perfil</p></a>
+                <a href="/auxiliofamilia/configuracoes.html" class="menu-item"><p>Configurações</p></a>
+            </div>
+            <div class="content">
+                <h1>Cadastro de Famílias em Extrema Pobreza</h1>
+                <div class="form">
+                    <form id="consult-family-form" action="/auxiliofamilia/process_consulta.php" method="post">
+                        <label for="family-name">Consultar nome da Família:</label>
+                        <input type="text" id="family-name" name="family-name" required>
+                        <input type="hidden" name="action" value="consult-family">
+                        <button type="submit">Consultar nome da Família</button>
+                    </form>
+                    <form id="consult-member-form" action="/auxiliofamilia/process_consulta.php" method="post">
+                        <label for="member-name">Nome do membro da Família:</label>
+                        <input type="text" id="member-name" name="member-name" required>
+                        <input type="hidden" name="action" value="consult-member">
+                        <button type="submit">Consultar membro da Família</button>
+                    </form>
+                    <form id="edit-family-form" action="/auxiliofamilia/process_consulta.php" method="post">
+                        <label for="edit-family-name">Editar nome da Família:</label>
+                        <input type="text" id="edit-family-name" name="edit-family-name" required>
+                        <input type="hidden" name="new-family-name" value="">
+                        <button type="submit" name="action" value="edit-family">Salvar nome da Família</button>
+                    </form>
+                    <form id="edit-member-form" action="/auxiliofamilia/process_consulta.php" method="post">
+                        <label for="edit-member-name">Nome do membro da Família a editar:</label>
+                        <input type="text" id="edit-member-name" name="edit-member-name" required>
+                        <label for="new-member-name">Novo Nome do Membro:</label> 
+                        <input type="text" id="new-member-name" name="new-member-name" required>
+                        <label for="new-member-age">Nova Idade:</label> 
+                        <input type="number" id="new-member-age" name="new-member-age" required>
+                        <label for="new-member-sex">Novo Sexo:</label> 
+                        <input type="text" id="new-member-sex" name="new-member-sex" required>
+                        <label for="new-member-cpf">Novo CPF:</label> 
+                        <input type="text" id="new-member-cpf" name="new-member-cpf" required>
+                        <button type="submit" name="action" value="edit-member">Salvar dados do membro</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <a href="#">Auxílio Família</a>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#">Sobre</a></li>
+                        <li><a href="#">Entrar</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <p>Contact Us: info@auxiliofamilia.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
